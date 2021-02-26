@@ -1,29 +1,22 @@
-import { useState } from 'react';
-export default SerachPanel = () => {
-    const [params, setParams] = useState({
-        projectName: '',
-        parentId: ''
-    })
-    const [users, setUsers] = useState([]);
+import { React } from 'react';
+
+export const SearchPanel = ({ param, setParam, users }) => {
     return (
         <form >
-            <input type="text"
-                placeholder="项目名"
-                value={params.projectName}
-                onChange={e => setParams({
-                    ...params,
-                    projectName: e.target.value
+            <input type="text" value={param.name} 
+                onChange={e => setParam({
+                    ...param,
+                    name: e.target.value
                 })}
             />
-            <select
-                value={params.parentId}
-                onChange={e => setParams({
-                    ...params,
-                    parentId: e.target.value
+            <select value={param.personId}
+                onChange={e => setParam({
+                    ...param,
+                    personId: e.target.value
                 })}
             >
-                <option value='负责人'></option>
-                {users.map(user => <option value={user.id}>{user.name}</option>)}
+                <option>负责人</option>
+                {users.map(user => <option value={user.id} key={user.id}>{user.name}</option>)}
             </select>
         </form>
     )
