@@ -1,9 +1,11 @@
-import React from "react";
-import { ProjectListScreen } from "./screens/project-list";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import { ProjectListScreen } from './screens/project-list';
 
 function App() {
   return (
-    <div>
+    <div className='App'>
       <ProjectListScreen></ProjectListScreen>
     </div>
   );
