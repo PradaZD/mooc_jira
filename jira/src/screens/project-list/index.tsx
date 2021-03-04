@@ -1,9 +1,9 @@
-import { React, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'whatwg-fetch';
 import qs from 'qs';
 import { SearchPanel } from './search-panel';
 import { List } from './List';
-import { cleanObject } from '../../utils';
+import { cleanObject, useMount, useDebounce } from '../../utils';
 const apiUrl = process.env.REACT_APP_API_URL;
 console.log(apiUrl);
 export const ProjectListScreen = () => {
@@ -13,24 +13,24 @@ export const ProjectListScreen = () => {
   });
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]);
-
+  const debounceParam = useDebounce(param, 200);
   useEffect(() => {
-    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(
-      async (res) => {
-        if (res.ok) {
-          setList(await res.json());
-        }
+    fetch(
+      `${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`
+    ).then(async (res) => {
+      if (res.ok) {
+        setList(await res.json());
       }
-    );
-  }, [param]);
+    });
+  }, [debounceParam]);
   //初始化users;
-  useEffect(() => {
+  useMount(() => {
     fetch(`${apiUrl}/users`).then(async (res) => {
       if (res.ok) {
         setUsers(await res.json());
       }
     });
-  }, []);
+  });
   return (
     <div>
       <SearchPanel
