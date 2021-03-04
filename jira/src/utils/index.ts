@@ -1,6 +1,8 @@
+import { computeHeadingLevel } from '@testing-library/react';
 import { useState, useEffect } from 'react';
 
-export const isFalsy = (value: any) => (value === 0 ? false : !value);
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
+
 export const cleanObject = (object: object) => {
   // Object.assign({}, object)
   const result = { ...object };
@@ -38,7 +40,7 @@ export const useMount = (callback: () => void) => {
 // log()
 // log()
 //防抖要拿到的是最后一个操作值，在这里也就是最后一个param
-export const useDebounce = (value: any, delay?: number) => {
+export const useDebounce = <T>(value: T, delay?: number): T => {
   const [debounceValue, setDebounceValue] = useState(value);
   useEffect(() => {
     const timeout = setTimeout(() => setDebounceValue(value), delay);
@@ -46,4 +48,20 @@ export const useDebounce = (value: any, delay?: number) => {
     return () => clearTimeout(timeout);
   }, [value, delay]);
   return debounceValue;
+};
+
+export const useArray = <T>(initialValue: T[]) => {
+  const [value, setValue] = useState(initialValue);
+  return {
+    value,
+    setValue,
+    add: (item: T) => setValue([...value, item]),
+    removeIndex: (index: number) => {
+      //浅拷贝
+      const copy = [...value];
+      copy.splice(index, 1);
+      setValue(copy);
+    },
+    clear: () => setValue([]),
+  };
 };

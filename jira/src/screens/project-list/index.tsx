@@ -13,7 +13,15 @@ export const ProjectListScreen = () => {
   });
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]);
-  const debounceParam = useDebounce(param, 200);
+  const debounceParam = useDebounce(param, 2000);
+
+  //unkonw表示一个变量可以是任何变量，但是unknow不能被赋值给任何值，并且也不能从unknown身上获取任何方法
+  // let value: unknown;
+  // value = null;
+  // value = undefined;
+  // value = {};
+  // value.getName()
+
   useEffect(() => {
     fetch(
       `${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`
