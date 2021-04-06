@@ -1,19 +1,6 @@
-export interface User {
-  id: string;
-  name: string;
-  organization: string;
-  email: string;
-}
-interface SearchPanelProps {
-  param: {
-    name: string;
-    personId: string;
-  };
-  setParam: (param: SearchPanelProps['param']) => void;
-  users: User[];
-}
+import react from 'react';
 
-export const SearchPanel = ({ param, setParam, users }: SearchPanelProps) => {
+export const SearchPanel = ({ param, users, setParam }) => {
   return (
     <form>
       <input
