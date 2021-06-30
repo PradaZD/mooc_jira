@@ -14,7 +14,7 @@ export const ProjectList = () => {
   const [users, setUsers] = useState([])
   const [list, setList] = useState([])
   //返回的是最后一次的param？
-  const debounceParam = useDebounce(params, 2000)
+  const debounceParam = useDebounce(params, 500)
   //user只需要在组件加载之后渲染一次，相当于componentDidmount
   useMount(() => {
     fetch('http://localhost:3001/users').then(

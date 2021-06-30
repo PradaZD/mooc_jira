@@ -1,6 +1,20 @@
 import react from 'react'
-// import { useState} from 'react'
-const LiSerachPanelst = ({ users,params,setParams}) => {
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  title: string;
+}
+interface SerachPanelProps {
+  users: User[],
+  params: {
+    name: string;
+    personId: string;
+  }
+  setParams: (params: SerachPanelProps['params']) => void;
+}
+const SerachPanel = ({ users, params, setParams }: SerachPanelProps) => {
   return (
     <form>
       <input
@@ -29,4 +43,4 @@ const LiSerachPanelst = ({ users,params,setParams}) => {
     </form>
   )
 }
-export default LiSerachPanelst
+export default SerachPanel

@@ -1,9 +1,20 @@
 import React from 'react'
-
-const List = ({ users, list }) => {
+import {User} from './serach-panel'
+//这里参考API文档来设置
+interface Project {
+  id: string;
+  name: string;
+  personId: string;
+  pin: boolean;
+}
+interface ListProps {
+  users: User[];
+  list: Project[];
+}
+const List = ({ users, list }: ListProps) => {
 
   return (
-    <table border="1" >
+    <table>
       <thead>
         <tr>
           <th>名称</th>
@@ -15,7 +26,7 @@ const List = ({ users, list }) => {
           list.map(project =>
             <tr key={project.id}>
               <td>{project.name}</td>
-              <td index={project.id}>{users.find(user => user.id === project.personId)?.name || '未知'}</td>
+              <td>{users.find(user => user.id === project.personId)?.name || '未知'}</td>
             </tr>
 
           )
